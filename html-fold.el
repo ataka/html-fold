@@ -362,6 +362,7 @@ Return non-nil if an item was found and folded, nil otherwise."
 	  (html-fold-hide-item ov)
 	  (when (eq type 'inline)
 	    (save-excursion
+	      (goto-char item-start)
 	      (let ((case-fold-search nil)
 		    (regexp (concat "</" item-name ">")))
 		(re-search-forward regexp nil t)
