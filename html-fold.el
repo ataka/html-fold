@@ -70,6 +70,7 @@
   '(("[a:" ("a"))
     ("[c:" ("code"))
     ("[k:" ("kbd"))
+    ("[v:" ("var"))
     ("[s:" ("samp"))
     ("[ab:" ("abbr" "acronym"))
     ("[lab:" ("label"))
