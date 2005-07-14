@@ -663,6 +663,8 @@ Remove the respective properties from the overlay OV."
 			;; See preview.el on how to make this configurable.
 			(memq this-command (list (key-binding [left])
 						 (key-binding [right])
+						 'forward-char
+						 'backward-char
 						 'mouse-set-point)))
 		;; Open new overlays.
 		(dolist (ol (nconc (when (and html-fold-unfold-around-mark
