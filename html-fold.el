@@ -5,7 +5,7 @@
 ;; Author: Masayuki Ataka <ataka@milk.freemail.ne.jp>
 ;; Maintainer: Masayuki Ataka <ataka@milk.freemail.ne.jp>
 ;; Created: 2005-05-10
-;; Version: alpha2 2005-07-13
+;; Version: alpha3 2005-07-15
 ;; Keywords: html, wp
 
 ;; This file is not part of Emacs.
