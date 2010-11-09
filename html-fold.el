@@ -1,9 +1,9 @@
 ;;; html-fold.el --- Fold HTML elements.
 
-;; Copyright (C) 2005  Masayuki Ataka
+;; Copyright (C) 2005, 2010  Masayuki Ataka
 
-;; Author: Masayuki Ataka <ataka@milk.freemail.ne.jp>
-;; Maintainer: Masayuki Ataka <ataka@milk.freemail.ne.jp>
+;; Author: Masayuki Ataka <masayuki.ataka@gmail.com>
+;; Maintainer: Masayuki Ataka <masayuki.ataka@gmail.com>
 ;; Created: 2005-05-10
 ;; Version: alpha3 2005-07-15
 ;; Keywords: html, wp
