@@ -31,7 +31,7 @@
 ;;
 ;; Acknowledgements:
 ;;
-;; html-fold is depeloped based on tex-fold.el in AUCTeX, written by 
+;; html-fold is depeloped based on tex-fold.el in AUCTeX, written by
 ;; Ralf Angeli <angeli@iwi.uni-sb.de>.
 ;;
 ;; Caveats:
@@ -707,6 +707,24 @@ the other elements.  The ordering among elements is maintained."
       (if (funcall p x) (push x car) (push x cdr)))
     (cons (nreverse car) (nreverse cdr))))
 
+(defun html-fold-add-mode-name-suffix ()
+  (if (stringp mode-name)
+      (concat mode-name "/F")
+    (mapcar (lambda (x)
+              (if (stringp x)
+                  (concat x "/F")
+                x))
+            mode-name)))
+
+(defun html-fold-del-mode-name-suffix ()
+  (if (stringp mode-name)
+      (substring mode-name 0 -2)
+    (mapcar (lambda (x)
+              (if (stringp x)
+                  (substring x 0 -2)
+                x))
+            mode-name)))
+
 
 ;;; The mode
 
@@ -731,8 +749,8 @@ With zero or negative ARG turn mode off."
     (remove-hook 'post-command-hook 'html-fold-post-command t)
     (html-fold-clearout-buffer))
   (if html-fold-mode
-      (setq mode-name (concat mode-name (when html-fold-mode "/F")))
-    (setq mode-name (substring mode-name 0 -2)))
+      (setq mode-name (html-fold-add-mode-name-suffix))
+    (setq mode-name (html-fold-del-mode-name-suffix)))
   (set-buffer-modified-p (buffer-modified-p)))
 
 (defun html-beginning-of-paragraph ()
