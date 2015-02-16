@@ -160,7 +160,7 @@ overlays between two existing ones.")
 
 ;;; Special support for XEmacs
 
-(when (featurep 'xemacs)
+(eval-and-compile (when (featurep 'xemacs)
 
   (defun html-active-mark ()
     (and zmacs-regions (mark)))
@@ -200,11 +200,11 @@ overlays."
 	     (+ (/ (- outer-priority inner-priority) 2) inner-priority))
 	    (t html-overlay-priority-step))))
 
-)
+))
 
 ;;; Special support for GNU Emacs
 
-(unless (featurep 'xemacs)
+(eval-and-compile (unless (featurep 'xemacs)
 
   (defun html-active-mark ()
     (and transient-mark-mode mark-active))
@@ -231,7 +231,7 @@ overlays."
 	     (+ (/ (- outer-priority inner-priority) 2) inner-priority))
 	    (t html-overlay-priority-step))))
 
-)
+))
 
 ;;; Folding
 
