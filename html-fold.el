@@ -465,6 +465,11 @@ of the resulting list."
 		  (car (extent-property (extent-at content-start) 'face))))
 	nil))))
 
+(defun html-find-closing-brace ()
+  )
+(defun html-find-inline-end ()
+  )
+
 (defun html-fold-buffer-substring (start end)
   "Return the contents of buffer from START to END as a string.
 Like `buffer-substring' but copy overlay display strings as well."
