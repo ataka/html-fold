@@ -153,7 +153,7 @@ Set it to zero in order to disable help echos."
     (define-key map "\C-c\C-oi"    'html-fold-clearout-item)
     map))
 
-(defvar html-overlay-priority-step 16
+(defvar html-fold-overlay-priority-step 16
   "Numerical difference of priorities between nested overlays.
 The step should be big enough to allow setting a priority for new
 overlays between two existing ones.")
@@ -162,10 +162,10 @@ overlays between two existing ones.")
 
 (eval-and-compile (when (featurep 'xemacs)
 
-  (defun html-active-mark ()
+  (defun html-fold-active-mark ()
     (and zmacs-regions (mark)))
 
-  (defun html-overlay-prioritize (start end)
+  (defun html-fold-overlay-prioritize (start end)
     "Calculate a priority for an overlay extending from START to END.
 The calculated priority is lower than the minimum of priorities
 of surrounding overlays and higher than the maximum of enclosed
@@ -193,12 +193,12 @@ overlays."
        '(start-and-end-in-region negate-in-region) 'priority)
       (setq inner-priority (car prios) outer-priority (cdr prios))
       (cond ((and inner-priority (not outer-priority))
-	     (+ inner-priority html-overlay-priority-step))
+	     (+ inner-priority html-fold-overlay-priority-step))
 	    ((and (not inner-priority) outer-priority)
 	     (/ outer-priority 2))
 	    ((and inner-priority outer-priority)
 	     (+ (/ (- outer-priority inner-priority) 2) inner-priority))
-	    (t html-overlay-priority-step))))
+	    (t html-fold-overlay-priority-step))))
 
 ))
 
@@ -206,10 +206,10 @@ overlays."
 
 (eval-and-compile (unless (featurep 'xemacs)
 
-  (defun html-active-mark ()
+  (defun html-fold-active-mark ()
     (and transient-mark-mode mark-active))
 
-  (defun html-overlay-prioritize (start end)
+  (defun html-fold-overlay-prioritize (start end)
     "Calculate a priority for an overlay extending from START to END.
 The calculated priority is lower than the minimum of priorities
 of surrounding overlays and higher than the maximum of enclosed
@@ -224,12 +224,12 @@ overlays."
 	    (setq outer-priority (min ov-priority (or outer-priority
 						      ov-priority))))))
       (cond ((and inner-priority (not outer-priority))
-	     (+ inner-priority html-overlay-priority-step))
+	     (+ inner-priority html-fold-overlay-priority-step))
 	    ((and (not inner-priority) outer-priority)
 	     (/ outer-priority 2))
 	    ((and inner-priority outer-priority)
 	     (+ (/ (- outer-priority inner-priority) 2) inner-priority))
-	    (t html-overlay-priority-step))))
+	    (t html-fold-overlay-priority-step))))
 
 ))
 
@@ -242,7 +242,7 @@ region, fold all configured content in this region.  If there is
 no folded content but a element, fold it."
   (interactive)
   (cond ((html-fold-clearout-item))
-	((html-active-mark) (html-fold-region (mark) (point)))
+	((html-fold-active-mark) (html-fold-region (mark) (point)))
 	((html-fold-item 'inline))
 	((html-fold-item 'block))))
 
@@ -269,8 +269,8 @@ The relevant elements are specified in the variable
 `html-fold-custom-element-list'."
   (interactive)
   (save-excursion
-    (let ((end (progn (html-beginning-of-paragraph) (point)))
-	  (start (progn (html-end-of-paragraph) (point))))
+    (let ((end (progn (html-fold-beginning-of-paragraph) (point)))
+	  (start (progn (html-fold-end-of-paragraph) (point))))
       (html-fold-clearout-region start end)
       (html-fold-region start end))))
 
@@ -335,7 +335,7 @@ block elements or 'inline for inline elements."
 TYPE specifies the type of item and can be one of the symbols
 'block or 'inline.
 Return non-nil if an item was found and folded, nil otherwise."
-  (let ((item-start (save-excursion (html-find-element-start))))
+  (let ((item-start (save-excursion (html-fold-find-element-start))))
     (when item-start
       (let* ((item-name (save-excursion
 			  (goto-char item-start)
@@ -381,8 +381,8 @@ DISPLAY-STRING-SPEC is the original specification of the display
 string in the variables `html-fold-macro-spec-list' or
 `html-fold-env-spec-list' and may be a string or an integer."
   ;; Calculate priority before the overlay is instantiated.  We don't
-  ;; want `html-overlay-prioritize' to pick up a non-prioritized one.
-  (let ((priority (html-overlay-prioritize ov-start ov-end))
+  ;; want `html-fold-overlay-prioritize' to pick up a non-prioritized one.
+  (let ((priority (html-fold-overlay-prioritize ov-start ov-end))
 	(ov (make-overlay ov-start ov-end (current-buffer) t nil)))
     (overlay-put ov 'category 'html-fold)
     (overlay-put ov 'priority priority)
@@ -438,7 +438,7 @@ of the resulting list."
   (save-excursion
     (let ((inline-end (or inline-end
 			 (save-excursion (goto-char inline-start)
-					 (html-find-inline-end))))
+					 (html-fold-find-inline-end))))
 	  content-start content-end)
       (goto-char inline-start)
       (if (condition-case nil
@@ -449,7 +449,7 @@ of the resulting list."
 		  (setq content-start (progn
 					(skip-chars-forward "{ \t")
 					(point)))
-		  (goto-char (html-find-closing-brace))
+		  (goto-char (html-fold-find-closing-brace))
 		  (setq content-end (save-excursion
 				      (backward-char)
 				      (skip-chars-backward " \t")
@@ -465,9 +465,9 @@ of the resulting list."
 		  (car (extent-property (extent-at content-start) 'face))))
 	nil))))
 
-(defun html-find-closing-brace ()
+(defun html-fold-find-closing-brace ()
   )
-(defun html-find-inline-end ()
+(defun html-fold-find-inline-end ()
   )
 
 (defun html-fold-buffer-substring (start end)
@@ -558,8 +558,8 @@ breaks will be replaced by spaces."
   "Permanently show all elements in the paragraph point is located in."
   (interactive)
   (save-excursion
-    (let ((end (progn (html-end-of-paragraph) (point)))
-	  (start (progn (html-beginning-of-paragraph) (point))))
+    (let ((end (progn (html-fold-end-of-paragraph) (point)))
+	  (start (progn (html-fold-beginning-of-paragraph) (point))))
       (html-fold-clearout-region start end))))
 
 (defun html-fold-clearout-region (start end)
@@ -758,11 +758,11 @@ With zero or negative ARG turn mode off."
     (setq mode-name (html-fold-del-mode-name-suffix)))
   (set-buffer-modified-p (buffer-modified-p)))
 
-(defun html-beginning-of-paragraph ()
+(defun html-fold-beginning-of-paragraph ()
   (re-search-backward "<p\\(?:\\s-\\|>\\)"))
-(defun html-end-of-paragraph ()
+(defun html-fold-end-of-paragraph ()
   (re-search-forward "</p>"))
-(defun html-find-element-start ()
+(defun html-fold-find-element-start ()
   (re-search-backward "<[A-Za-z]"))
 
 (provide 'html-fold)
