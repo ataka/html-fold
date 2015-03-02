@@ -47,6 +47,8 @@
 
 ;;; Code:
 
+(eval-when-compile (require 'cl))
+
 (when (featurep 'xemacs)
   (require 'overlay))
 
