@@ -31,7 +31,7 @@
 ;;
 ;; Acknowledgements:
 ;;
-;; html-fold is depeloped based on tex-fold.el in AUCTeX, written by
+;; html-fold is developed based on tex-fold.el in AUCTeX, written by
 ;; Ralf Angeli <angeli@iwi.uni-sb.de>.
 ;;
 ;; Caveats:
@@ -566,7 +566,7 @@ breaks will be replaced by spaces."
       (html-fold-clearout-region start end))))
 
 (defun html-fold-clearout-region (start end)
-  "Permanently show all elelemnts in region starting at START and ending at END."
+  "Permanently show all elements in region starting at START and ending at END."
   (interactive "r")
   (let ((overlays (overlays-in start end)))
     (html-fold-remove-overlays overlays)))
