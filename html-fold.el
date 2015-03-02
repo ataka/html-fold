@@ -1,6 +1,6 @@
 ;;; html-fold.el --- Fold HTML elements.
 
-;; Copyright (C) 2005, 2010  Masayuki Ataka
+;; Copyright (C) 2005, 2010, 2015  Masayuki Ataka
 
 ;; Author: Masayuki Ataka <masayuki.ataka@gmail.com>
 ;; Maintainer: Masayuki Ataka <masayuki.ataka@gmail.com>
