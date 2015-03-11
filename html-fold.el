@@ -76,6 +76,8 @@
     ("[s:" ("samp"))
     ("[ab:" ("abbr" "acronym"))
     ("[i:" ("input"))
+    ("[*"  ("strong"))
+    ("[_"  ("em"))
     ("[l:" ("label"))
     ("[opt:" ("option")))
   "List of inline elements to fold."
