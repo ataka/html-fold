@@ -75,10 +75,12 @@
     ("[v:" ("var"))
     ("[s:" ("samp"))
     ("[ab:" ("abbr" "acronym"))
-    ("[i:" ("input"))
     ("[*"  ("strong"))
     ("[_"  ("em"))
     ("[l:" ("label"))
+    ("[i:" ("input"))
+    ("[btn:" ("button"))
+    ("[sel:" ("select"))
     ("[opt:" ("option")))
   "List of inline elements to fold."
   :type '(repeat (group (string :tag "Display String")
