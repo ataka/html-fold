@@ -95,6 +95,12 @@
   :type 'string
   :group 'html-fold)
 
+(defcustom html-fold-inline-close-list
+  '((")" ("rp")))
+  "List of close string for inline elements."
+  :type '(repeat (group (string :tag "Display String")
+			(repeat :tag "Inline Elements" (string)))))
+
 (defcustom html-fold-unfold-around-mark t
   "Unfold text around the mark, if active."
   :type 'boolean
@@ -296,7 +302,7 @@ block elements or 'inline for inline elements."
 	(html-fold-region start end 'inline))
     (when (or (eq type 'block) (eq type 'inline))
       (save-excursion
-	(let (fold-list item-list regexp)
+	(let (fold-list item-list close-list regexp)
 	  (if (eq type 'block)
 	      (setq fold-list (mapcar (lambda (i) (list i (format html-fold-block-format i)))
 				      html-fold-block-list)
@@ -304,7 +310,10 @@ block elements or 'inline for inline elements."
 	    (dolist (item html-fold-inline-list)
 	      (dolist (i (cadr item))
 		(add-to-list 'fold-list (list i (car item)))
-		(add-to-list 'item-list i))))
+		(add-to-list 'item-list i)))
+	    (dolist (item html-fold-inline-close-list)
+	      (dolist (i (cadr item))
+		(add-to-list 'close-list (list i (car item))))))
 	  (setq regexp (concat "<" (regexp-opt item-list t) "\\(?:\\s-\\|>\\)"))
 	  (save-restriction
 	    (narrow-to-region start end)
@@ -324,8 +333,13 @@ block elements or 'inline for inline elements."
 		(setq regexp (concat "</" (regexp-opt item-list t) ">"))
 		(goto-char (point-max))
 		(while (re-search-backward regexp nil t)
-		  (let ((ov (html-fold-make-overlay (match-beginning 0) (match-end 0)
-						    type html-fold-inline-close-string)))
+		  (let* ((item-start (match-beginning 0))
+			 (element (match-string 1))
+			 (display-string-spec (or (assoc element close-list)
+						  html-fold-inline-close-string))
+			 (item-end (match-end 0))
+			 (ov (html-fold-make-overlay item-start item-end type
+						     display-string-spec)))
 		    (html-fold-hide-item ov)))))))))))
 
 (defun html-fold-inline ()
