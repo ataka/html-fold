@@ -47,4 +47,4 @@ This is an example for add-hook for html-mode.
 ## Acknowledgements
 
 html-fold is depeloped based on `tex-fold.el` in AUCTeX, written by
-Ralf Angeli <angeli@iwi.uni-sb.de>.
+[Ralf Angeli](mailto:angeli@iwi.uni-sb.de).
