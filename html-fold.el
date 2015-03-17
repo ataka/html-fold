@@ -71,6 +71,7 @@
 (defcustom html-fold-inline-list
   '(("[a:" ("a"))
     ("[c:" ("code"))
+    ("[d:" ("dfn"))
     ("[k:" ("kbd"))
     ("[v:" ("var"))
     ("[s:" ("samp"))
