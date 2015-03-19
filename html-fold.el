@@ -57,7 +57,8 @@
   :group 'wp)
 
 (defcustom html-fold-block-list
-  '("script" "style" "table" "iframe" "object")
+  '("script" "style" "table" "iframe" "object"
+    "rp")
   "List of block elements to fold."
   :type '(repeat :tag "Block Elements" (string))
   :group 'html-fold)
@@ -77,7 +78,6 @@
     ("[s:" ("samp"))
     ("[ab:" ("abbr" "acronym"))
     ("[rb:" ("ruby"))
-    ("("    ("rp"))
     ("[rt"  ("rt"))
     ("* "  ("li"))
     ("[*"  ("strong"))
@@ -99,7 +99,7 @@
   :group 'html-fold)
 
 (defcustom html-fold-inline-close-list
-  '((")" ("rp")))
+  '(("" ("")))
   "List of close string for inline elements."
   :type '(repeat (group (string :tag "Display String")
 			(repeat :tag "Inline Elements" (string)))))
