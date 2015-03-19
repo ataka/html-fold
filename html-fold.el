@@ -79,10 +79,10 @@
     ("[ab:" ("abbr" "acronym"))
     ("[rb:" ("ruby"))
     ("[rt"  ("rt"))
-    ("* "  ("li"))
-    ("[*"  ("strong"))
-    ("[_"  ("em"))
-    ("."   ("span"))
+    ("- "  ("li"))
+    ("*"   ("strong"))
+    ("_"   ("em"))
+    ("["   ("span"))
     ("[l:" ("label"))
     ("[i:" ("input"))
     ("[btn:" ("button"))
@@ -99,7 +99,9 @@
   :group 'html-fold)
 
 (defcustom html-fold-inline-close-list
-  '(("" ("")))
+  '(("."   ("li"))
+    ("*"   ("strong"))
+    ("_"   ("em")))
   "List of close string for inline elements."
   :type '(repeat (group (string :tag "Display String")
 			(repeat :tag "Inline Elements" (string)))))
