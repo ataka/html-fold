@@ -338,7 +338,7 @@ block elements or 'inline for inline elements."
 		(while (re-search-backward regexp nil t)
 		  (let* ((item-start (match-beginning 0))
 			 (element (match-string 1))
-			 (display-string-spec (or (assoc element close-list)
+			 (display-string-spec (or (cadr (assoc element close-list))
 						  html-fold-inline-close-string))
 			 (item-end (match-end 0))
 			 (ov (html-fold-make-overlay item-start item-end type
