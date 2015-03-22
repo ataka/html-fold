@@ -1,4 +1,5 @@
-;;; html-fold.el --- Fold HTML elements.
+;;; html-fold.el --- Fold HTML elements
+;; -*- Mode: Emacs-Lisp -*-
 
 ;; Copyright (C) 2005, 2010, 2015  Masayuki Ataka
 
