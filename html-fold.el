@@ -163,18 +163,25 @@ Set it to zero in order to disable help echos."
 (defvar html-fold-open-spots nil)
 (make-variable-buffer-local 'html-fold-open-spots)
 
+(defcustom html-fold-command-prefix "\C-c\C-o"
+  "Prefix key to use for commands in Html Fold mode.
+The value of this variable is checked as part of loading Html Fold mode.
+After that, changing the prefix key requires manipulating keymaps."
+  :type 'string
+  :group 'html-fold)
+
 (defvar html-fold-keymap
   (let ((map (make-sparse-keymap)))
-    (define-key map "\C-c\C-o\C-o" 'html-fold-dwim)
-    (define-key map "\C-c\C-o\C-b" 'html-fold-buffer)
-    (define-key map "\C-c\C-o\C-r" 'html-fold-region)
-    (define-key map "\C-c\C-o\C-p" 'html-fold-paragraph)
-    (define-key map "\C-c\C-o\C-m" 'html-fold-inline)
-    (define-key map "\C-c\C-o\C-e" 'html-fold-block)
-    (define-key map "\C-c\C-ob"    'html-fold-clearout-buffer)
-    (define-key map "\C-c\C-or"    'html-fold-clearout-region)
-    (define-key map "\C-c\C-op"    'html-fold-clearout-paragraph)
-    (define-key map "\C-c\C-oi"    'html-fold-clearout-item)
+    (define-key map "\C-o" 'html-fold-dwim)
+    (define-key map "\C-b" 'html-fold-buffer)
+    (define-key map "\C-r" 'html-fold-region)
+    (define-key map "\C-p" 'html-fold-paragraph)
+    (define-key map "\C-m" 'html-fold-inline)
+    (define-key map "\C-e" 'html-fold-block)
+    (define-key map "b"    'html-fold-clearout-buffer)
+    (define-key map "r"    'html-fold-clearout-region)
+    (define-key map "p"    'html-fold-clearout-paragraph)
+    (define-key map "i"    'html-fold-clearout-item)
     map))
 
 (defvar html-fold-overlay-priority-step 16
@@ -777,7 +784,7 @@ the other elements.  The ordering among elements is maintained."
 Called interactively, with no prefix argument, toggle the mode.
 With universal prefix ARG (or if ARG is nil) turn mode on.
 With zero or negative ARG turn mode off."
-  nil nil html-fold-keymap
+  nil nil (list (cons html-fold-command-prefix html-fold-keymap))
   (if html-fold-mode
       (progn
 	(set (make-local-variable 'search-invisible) t)
