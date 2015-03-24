@@ -5,6 +5,7 @@
 
 ;; Author: Masayuki Ataka <masayuki.ataka@gmail.com>
 ;; Maintainer: Masayuki Ataka <masayuki.ataka@gmail.com>
+;; URL: https://github.com/ataka/html-fold
 ;; Created: 2005-05-10
 ;; Version: alpha3 2005-07-15
 ;; Keywords: html, wp
