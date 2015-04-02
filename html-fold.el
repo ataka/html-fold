@@ -59,7 +59,7 @@
   :group 'wp)
 
 (defcustom html-fold-block-list
-  '("script" "style" "table" "iframe" "object"
+  '("script" "style" "iframe" "object"
     "rp")
   "List of block elements to fold."
   :type '(repeat :tag "Block Elements" (string))
