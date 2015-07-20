@@ -84,8 +84,8 @@
     ("- "  ("li"))
     ("*"   ("strong"))
     ("_"   ("em"))
-    ("["   ("span" "tr"))
-    ("|"   ("td" "th"))
+    ("{"   ("tr"))
+    ("["   ("span" "th" "td"))
     ("[l:" ("label"))
     ("[i:" ("input"))
     ("[btn:" ("button"))
@@ -103,7 +103,7 @@
 
 (defcustom html-fold-inline-close-list
   '(("."   ("li"))
-    ("|"   ("td" "th"))
+    ("}"   ("tr"))
     ("*"   ("strong"))
     ("_"   ("em")))
   "List of close string for inline elements."
